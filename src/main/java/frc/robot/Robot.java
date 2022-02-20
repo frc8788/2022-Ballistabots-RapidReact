@@ -10,7 +10,10 @@ import edu.wpi.first.wpilibj.TimedRobot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.autonomous.AutonomousHandler;
+import frc.robot.autonomous.TestAuto;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.SubsystemHandler;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -25,8 +28,12 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   private final SubsystemHandler subsystemHandler = new SubsystemHandler();
+  private final AutonomousHandler autonomousHandler = new AutonomousHandler();
+
+  private final TestAuto testAuto = new TestAuto();
   
   private final Drivetrain drivetrain = new Drivetrain(0);
+  private final Intake intake = new Intake(); //5000mm is max range?
 
 
 
@@ -41,8 +48,10 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
 
+    autonomousHandler.add(testAuto);
 
     subsystemHandler.add(drivetrain);
+    //subsystemHandler.add(intake);
 
 
 
@@ -75,6 +84,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
+    autonomousHandler.onAutonomousInit();
     System.out.println("Auto selected: " + m_autoSelected);
   }
 
@@ -83,11 +93,11 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
     switch (m_autoSelected) {
       case kCustomAuto:
-        // Put custom auto code here
+      autonomousHandler.onAutonomousPeriodic();
         break;
       case kDefaultAuto:
       default:
-        // Put default auto code here
+        autonomousHandler.onAutonomousPeriodic();
         break;
     }
   }
