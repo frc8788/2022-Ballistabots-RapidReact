@@ -17,9 +17,14 @@ public abstract class Gamepad {
         return gamepad.getRawButtonPressed(1);
     }
 
-    public boolean rightTrigger() {
-        return gamepad.getRawButton(8);
+    public double getRightTrigger() {
+        return gamepad.getRawAxis(3);
     }
+
+    public double getLeftTrigger() {
+        return gamepad.getRawAxis(2);
+    }
+
 
     public double getLeftStickY() {
         return gamepad.getRawAxis(1);
