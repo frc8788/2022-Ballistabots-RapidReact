@@ -1,20 +1,15 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
-
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.management.Subsystem;
+import frc.robot.subsystems.sensors.Sensors;
 
-public class Intake implements Subsystem{
+public class Intake extends Subsystem{
     
-
-    private int port = 0;
-    private int max = 5000;
-    private int zeroV = 0;
-    private AnalogPotentiometer ultransonic;
 
     @Override
     public void onRobotInit() {
-        ultransonic = new AnalogPotentiometer(port, max, zeroV);
         
     }
 
@@ -26,15 +21,33 @@ public class Intake implements Subsystem{
 
     @Override
     public void onTeleopInit() {
-        //ultransonic.get();
-        SmartDashboard.putNumber("Ultrasonic", ultransonic.get());
+        SmartDashboard.putString("Intake", "RAN");
+
         
     }
 
     @Override
     public void onTeleopPeriodic() {
+        
+
+        
+    }
+
+    @Override
+    public void getSensors(Sensors sensors) {
         // TODO Auto-generated method stub
-        SmartDashboard.putNumber("Ultrasonic", ultransonic.get());
+        
+    }
+
+    @Override
+    public void getDrivetrain(Drivetrain drivetrain) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void getGamepad(GenericHID driver, GenericHID aid) {
+        // TODO Auto-generated method stub
         
     }
 
