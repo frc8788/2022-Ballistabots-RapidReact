@@ -1,37 +1,44 @@
 package frc.robot.autonomous;
 
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.GenericHID;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.sensors.Sensors;
 
 public class TestAuto extends Autonomous{
 
-    private int port = 0;
-    private int max = 5000;
-    private int zeroV = 0;
-    private AnalogPotentiometer ultransonic;
-    private Drivetrain dt = new Drivetrain(0);
+    private Sensors sensors;
+
+
 
     @Override
     public void onAutonomousInit() {
-        //dt.tankDriveCustom(.5, .5);
+                
     }
 
     @Override
-    public void onAutonomousPeriodic() {
+    public void getSensors(Sensors sensors) {
+        this.sensors = sensors;
+        
+    }
 
+    @Override
+    public void getDrivetrain(Drivetrain drivetrain) {
+        this.drivetrain = drivetrain;
+        
+    }
+
+    public double getData() {
+        return sensors.getUltrasonicData(0);
+    }
+
+    @Override
+    public void getGamepad(GenericHID driver, GenericHID aid) {
+        // TODO Auto-generated method stub
+        
+    }
 
     
- 
-    }
-
-    @Override
-    public void onRobotInit() {
-        ultransonic = new AnalogPotentiometer(port, max, zeroV);
-
-    }
-
 
     
 }
