@@ -1,16 +1,30 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.shooter;
+
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.management.Subsystem;
 import frc.robot.subsystems.sensors.Sensors;
 
-public class Intake extends Subsystem{
-    
+public class Shooter extends Subsystem{
+
+    public GenericHID driver;
+    public GenericHID aid;
+
+    private TalonFX flyWheelMotor;
+    private CANSparkMax bottomMotor;
+    private CANSparkMax belt;
 
     @Override
     public void onRobotInit() {
-        
+        flyWheelMotor = new TalonFX(1);
+        bottomMotor = new CANSparkMax(5, MotorType.kBrushless);
+        belt = new CANSparkMax(6, MotorType.kBrushless);
     }
 
     @Override
@@ -21,15 +35,13 @@ public class Intake extends Subsystem{
 
     @Override
     public void onTeleopInit() {
-        SmartDashboard.putString("Intake", "RAN");
-
+        SmartDashboard.putString("Shooter", "RAN");
         
     }
 
     @Override
     public void onTeleopPeriodic() {
-        
-
+        flyWheelMotor.set(TalonFXControlMode.PercentOutput, aid.getRawAxis(3));
         
     }
 
@@ -47,10 +59,9 @@ public class Intake extends Subsystem{
 
     @Override
     public void getGamepad(GenericHID driver, GenericHID aid) {
-        // TODO Auto-generated method stub
+        this.driver = driver;
+        this.aid = aid;
         
     }
-
     
-
 }
