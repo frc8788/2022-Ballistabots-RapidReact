@@ -20,6 +20,7 @@ public class Shooter extends Subsystem{
     private CANSparkMax bottomMotor;
     private CANSparkMax belt;
 
+
     private int numberOfBalls;
 
     @Override
@@ -27,7 +28,7 @@ public class Shooter extends Subsystem{
         flyWheelMotor = new TalonFX(1);
         bottomMotor = new CANSparkMax(3, MotorType.kBrushless);
         belt = new CANSparkMax(2, MotorType.kBrushless);
-    }
+
 
     @Override
     public void onRobotPeriodic() {
@@ -40,6 +41,7 @@ public class Shooter extends Subsystem{
         SmartDashboard.putString("Shooter", "RAN");
         
     }
+
 
     public void ShooterCustom(double LY, double RY) {
         double BeltPower = (LY);
@@ -85,6 +87,9 @@ public class Shooter extends Subsystem{
 
 
     }
+
+
+
 
 
     @Override

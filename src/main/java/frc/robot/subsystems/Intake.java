@@ -7,7 +7,9 @@ import frc.robot.subsystems.sensors.Sensors;
 
 public class Intake extends Subsystem{
     
+
     public GenericHID aid;
+
 
     @Override
     public void onRobotInit() {
@@ -48,7 +50,9 @@ public class Intake extends Subsystem{
 
     @Override
     public void getGamepad(GenericHID driver, GenericHID aid) {
+
         this.aid = aid;
+
         
     }
 

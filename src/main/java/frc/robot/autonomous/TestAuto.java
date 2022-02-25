@@ -8,7 +8,9 @@ import frc.robot.subsystems.sensors.Sensors;
 public class TestAuto extends Autonomous{
 
     private Sensors sensors;
+
     private Drivetrain drivetrain;
+
 
 
 
