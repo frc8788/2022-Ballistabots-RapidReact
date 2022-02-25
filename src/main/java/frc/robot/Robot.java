@@ -14,6 +14,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.autonomous.TestAuto;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
+
+import frc.robot.subsystems.Lift;
+
 import frc.robot.subsystems.management.RobotHandler;
 import frc.robot.subsystems.sensors.Sensors;
 import frc.robot.subsystems.shooter.Shooter;
@@ -44,6 +47,9 @@ public class Robot extends TimedRobot {
   private final Intake intake = new Intake(); // 5000mm is max range?
   private final Shooter shooter = new Shooter();
 
+  private final Lift lift = new Lift();
+
+
   public GenericHID driver = new GenericHID(0);
   public GenericHID aid = new GenericHID(1);
 
@@ -62,9 +68,17 @@ public class Robot extends TimedRobot {
         .add(drivetrain)
         .add(intake)
         .add(shooter)
+
+        .add(lift)
         .add(sensors).addUltrasonicSensor(sensors, 0, 5000, 0).addUltrasonicSensor(sensors, 1, 5000, 0)
         .allocateSensors(sensors, testAuto)
         .allocateGamepads(driver, aid, drivetrain).allocateGamepads(driver, aid, shooter)
+        .allocateGamepads(driver, aid, lift)
+
+        .add(sensors).addUltrasonicSensor(sensors, 0, 5000, 0).addUltrasonicSensor(sensors, 1, 5000, 0)
+        .allocateSensors(sensors, testAuto)
+        .allocateGamepads(driver, aid, drivetrain).allocateGamepads(driver, aid, shooter)
+
         .allocateDrivetrain(drivetrain, testAuto);
 
     robotHandler.onRobotInit();

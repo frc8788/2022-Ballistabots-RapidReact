@@ -20,12 +20,15 @@ public class Shooter extends Subsystem{
     private CANSparkMax bottomMotor;
     private CANSparkMax belt;
 
+
+    private int numberOfBalls;
+
     @Override
     public void onRobotInit() {
         flyWheelMotor = new TalonFX(1);
-        bottomMotor = new CANSparkMax(5, MotorType.kBrushless);
-        belt = new CANSparkMax(6, MotorType.kBrushless);
-    }
+        bottomMotor = new CANSparkMax(3, MotorType.kBrushless);
+        belt = new CANSparkMax(2, MotorType.kBrushless);
+
 
     @Override
     public void onRobotPeriodic() {
@@ -39,11 +42,55 @@ public class Shooter extends Subsystem{
         
     }
 
-    @Override
-    public void onTeleopPeriodic() {
-        flyWheelMotor.set(TalonFXControlMode.PercentOutput, aid.getRawAxis(3));
+
+    public void ShooterCustom(double LY, double RY) {
+        double BeltPower = (LY);
+        double IntakePower = (-RY);
+
+        bottomMotor.set(IntakePower);
+        belt.set(BeltPower);
+        flyWheelMotor = new TalonFX(1);
+        flyWheelMotor.set(TalonFXControlMode.PercentOutput, -.75);
         
     }
+
+    @Override
+    public void onTeleopPeriodic() {
+        numberOfBalls = 0;
+        //flyWheelMotor.set(TalonFXControlMode.PercentOutput, aid.getRawAxis(3));
+        //ShooterCustom(driver.getRawAxis(1), driver.getRawAxis(5));
+
+        if (aid.getRawButtonPressed(0)) {
+            if (numberOfBalls == 0) {
+
+
+                if (true /*touched pressed true */) {
+                    belt.set(0);
+                    numberOfBalls = 1;
+
+
+                } else {
+                    bottomMotor.set(.5);
+                    belt.set(.5);
+                    
+                }
+
+            } 
+
+            if (numberOfBalls == 1 && aid.getRawButton(0)) {
+                bottomMotor.set(.5);
+
+            }
+
+
+        }
+
+
+    }
+
+
+
+
 
     @Override
     public void getSensors(Sensors sensors) {

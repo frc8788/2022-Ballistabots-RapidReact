@@ -67,10 +67,12 @@ public class Drivetrain extends Subsystem {
   @Override
   public void onRobotInit() {
 
-    leftBackMotor = new CANSparkMax(1, MotorType.kBrushless);
-    leftFrontMotor = new CANSparkMax(2, MotorType.kBrushless);
-    rightFrontMotor = new CANSparkMax(3, MotorType.kBrushless);
-    rightBackMotor = new CANSparkMax(4, MotorType.kBrushless);
+
+    leftBackMotor = new CANSparkMax(10, MotorType.kBrushless);
+    leftFrontMotor = new CANSparkMax(20, MotorType.kBrushless);
+    rightFrontMotor = new CANSparkMax(30, MotorType.kBrushless);
+    rightBackMotor = new CANSparkMax(40, MotorType.kBrushless);
+
 
     // testFalcon = new TalonFX(2);
   }
