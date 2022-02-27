@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 
 import frc.robot.subsystems.management.Subsystem;
@@ -65,11 +65,11 @@ public void LiftDown(boolean b) {
   @Override
   public void onTeleopPeriodic() {
     if(driver.getRawButton(1)) {
-      LiftUp(true);
-    } else if (driver.getRawButton(2)) {
-      LiftDown(true);
+      LiftSolenoid.set(Value.kForward);
+    }if (driver.getRawButton(2)) {
+      LiftSolenoid.set(Value.kReverse);
     } else {
-      LiftSolenoid.toggle();
+      //LiftSolenoid.toggle();
     }
     
   }
