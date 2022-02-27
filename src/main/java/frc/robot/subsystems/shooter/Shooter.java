@@ -1,5 +1,6 @@
 package frc.robot.subsystems.shooter;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.revrobotics.CANSparkMax;
@@ -22,24 +23,39 @@ public class Shooter extends Subsystem{
 
 
     private int numberOfBalls;
+    private Sensors sensors;
 
     @Override
     public void onRobotInit() {
         flyWheelMotor = new TalonFX(1);
         bottomMotor = new CANSparkMax(3, MotorType.kBrushless);
         belt = new CANSparkMax(2, MotorType.kBrushless);
+        flyWheelMotor.setInverted(true);
+        bottomMotor.setInverted(true);
 
+    }
 
     @Override
     public void onRobotPeriodic() {
         // TODO Auto-generated method stub
+        SmartDashboard.putNumber("LIDAR", sensors.getLidar());
         
     }
 
     @Override
     public void onTeleopInit() {
         SmartDashboard.putString("Shooter", "RAN");
+       
+
+
+
+
         
+    }
+
+    public void touchtest() {
+        SmartDashboard.putBoolean("TOUCH ONE", sensors.getTouchSensorData(0));
+        SmartDashboard.putBoolean("TOUCH TWO", sensors.getTouchSensorData(1));
     }
 
 
@@ -56,35 +72,60 @@ public class Shooter extends Subsystem{
 
     @Override
     public void onTeleopPeriodic() {
-        numberOfBalls = 0;
-        //flyWheelMotor.set(TalonFXControlMode.PercentOutput, aid.getRawAxis(3));
-        //ShooterCustom(driver.getRawAxis(1), driver.getRawAxis(5));
 
-        if (aid.getRawButtonPressed(0)) {
-            if (numberOfBalls == 0) {
+        touchtest();
+        SmartDashboard.putBoolean("BUTTON PRESSED", driver.getRawButtonPressed(3));
 
-
-                if (true /*touched pressed true */) {
-                    belt.set(0);
-                    numberOfBalls = 1;
+        if (driver.getRawButton(3)) {
 
 
-                } else {
-                    bottomMotor.set(.5);
-                    belt.set(.5);
-                    
-                }
+            bottomMotor.set(.5);
+            belt.set(.5);
 
-            } 
+            if (!sensors.getTouchSensorData(0)) {
 
-            if (numberOfBalls == 1 && aid.getRawButton(0)) {
-                bottomMotor.set(.5);
+                belt.set(0);
+            }
+            
+            if (!sensors.getTouchSensorData(0) && driver.getRawButton(5)) {
+                flyWheelMotor.set(ControlMode.PercentOutput, .5);
+                belt.set(.5);
+            }
 
+            if (!sensors.getTouchSensorData(0) && !sensors.getTouchSensorData(1)) {
+                bottomMotor.set(0);
             }
 
 
+
+        }else {
+            flyWheelMotor.set(ControlMode.PercentOutput, 0);
+            bottomMotor.set(0);
+            belt.set(0);
+        }
+        if (driver.getRawButton(6)) {
+            flyWheelMotor.set(ControlMode.PercentOutput, .5);
         }
 
+        /*
+        if (aid.getRawButton(3)) { 
+
+            if (sensors.getTouch() && numberOfBalls == 0) {
+                flyWheelMotor.set(ControlMode.PercentOutput, .1);
+                bottomMotor.set(.5);
+                belt.set(.5); 
+                if (!sensors.getTouch()) {
+                    numberOfBalls = 1;
+                }
+            } 
+        }else {
+            flyWheelMotor.set(ControlMode.PercentOutput, 0);
+            bottomMotor.set(0);
+            belt.set(0);
+        }
+        */
+
+        
 
     }
 
@@ -94,7 +135,7 @@ public class Shooter extends Subsystem{
 
     @Override
     public void getSensors(Sensors sensors) {
-        // TODO Auto-generated method stub
+        this.sensors = sensors;
         
     }
 
