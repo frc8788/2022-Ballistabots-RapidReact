@@ -14,9 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.autonomous.TestAuto;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
-
 import frc.robot.subsystems.Lift;
-
 import frc.robot.subsystems.management.RobotHandler;
 import frc.robot.subsystems.sensors.Sensors;
 import frc.robot.subsystems.shooter.Shooter;
@@ -67,17 +65,28 @@ public class Robot extends TimedRobot {
     robotHandler
         .add(drivetrain)
         .add(intake)
-        .add(shooter)
 
+        .add(shooter)
+        .allocateSensors(sensors, shooter)
+        .addTouchSensor(sensors, 9)
+        .addTouchSensor(sensors, 8)
+        
         .add(lift)
-        .add(sensors).addUltrasonicSensor(sensors, 0, 5000, 0).addUltrasonicSensor(sensors, 1, 5000, 0)
+
+        .add(sensors)
+        .addUltrasonicSensor(sensors, 0, 5000, 0)
+        .addUltrasonicSensor(sensors, 1, 5000, 0)
+        .addLidarSensor(sensors)
+
         .allocateSensors(sensors, testAuto)
-        .allocateGamepads(driver, aid, drivetrain).allocateGamepads(driver, aid, shooter)
+        .allocateGamepads(driver, aid, drivetrain)
+        .allocateGamepads(driver, aid, shooter)
         .allocateGamepads(driver, aid, lift)
 
-        .add(sensors).addUltrasonicSensor(sensors, 0, 5000, 0).addUltrasonicSensor(sensors, 1, 5000, 0)
+        //.add(sensors).addUltrasonicSensor(sensors, 0, 5000, 0).addUltrasonicSensor(sensors, 1, 5000, 0)
         .allocateSensors(sensors, testAuto)
-        .allocateGamepads(driver, aid, drivetrain).allocateGamepads(driver, aid, shooter)
+        //.allocateGamepads(driver, aid, drivetrain)
+        //.allocateGamepads(driver, aid, shooter)
 
         .allocateDrivetrain(drivetrain, testAuto);
 

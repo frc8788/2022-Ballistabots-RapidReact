@@ -18,6 +18,7 @@ public class Drivetrain extends Subsystem {
   private CANSparkMax leftBackMotor;
   private CANSparkMax rightFrontMotor;
   private CANSparkMax rightBackMotor;
+  private CANSparkMax owensbadmotor;
 
   // private TalonFX testFalcon;
 
@@ -72,6 +73,7 @@ public class Drivetrain extends Subsystem {
     leftFrontMotor = new CANSparkMax(20, MotorType.kBrushless);
     rightFrontMotor = new CANSparkMax(30, MotorType.kBrushless);
     rightBackMotor = new CANSparkMax(40, MotorType.kBrushless);
+    owensbadmotor = new CANSparkMax(11, MotorType.kBrushed);
 
 
     // testFalcon = new TalonFX(2);
@@ -81,6 +83,7 @@ public class Drivetrain extends Subsystem {
   public void onTeleopInit() {
     SmartDashboard.putString("Drivetrain", "RAN");
 
+    owensbadmotor.setVoltage(10);
   }
 
   @Override
@@ -99,6 +102,12 @@ public class Drivetrain extends Subsystem {
 
   @Override
   public void onRobotPeriodic() {
+if (driver.getRawButton(4)) {
+
+  owensbadmotor.setInverted(true);
+} else {
+  owensbadmotor.setInverted(false);
+}
 
   }
 

@@ -16,10 +16,21 @@ public class RobotHandler extends Subsystem {
         return this;
     }
 
+    public RobotHandler addLidarSensor(Sensors sensors) {
+        sensors.setLidar();
+        return this;
+    }
+
     public RobotHandler addUltrasonicSensor(Sensors sensors, int port, int max, int zeroV) {
         sensors.setUltrasonic(port, max, zeroV);
         return this;
     }
+    public RobotHandler addTouchSensor(Sensors sensors, int port) {
+        sensors.setTouch(port);
+        return this;
+    }
+
+
 
     public RobotHandler allocateSensors(Sensors sensors, Autonomous autonomous) {
         autonomous.getSensors(sensors);
